@@ -27,9 +27,14 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
   nightly-builds-tag:
     if : ${{ github.event_name == 'schedule' }}
-    uses: IIlyichev/github-tag-action@v6.3
-    with:
-      tag_prefix: 1.develop-nightly-${{ steps.date.outputs.date }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ncipollo/release-action@v1
+      with:
+        tag_prefix: 1.develop-nightly-${{ steps.date.outputs.date }}
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
