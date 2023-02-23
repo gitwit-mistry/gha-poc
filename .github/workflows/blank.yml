@@ -21,8 +21,7 @@ jobs:
 #     if : ${{ github.event_name == 'schedule' }}
       name: Create Release
       runs-on: ubuntu-latest
-      permissions:
-        actions: write
+      permissions: write-all
       steps:
         - name: Get current date
           id: date
