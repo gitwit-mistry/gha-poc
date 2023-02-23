@@ -5,12 +5,12 @@ name: CI
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
- # push:
- #   branches: [ "main" ]
- # pull_request:
- #   branches: [ "main" ]
+ push:
+   branches: [ "main" ]
+ pull_request:
+   branches: [ "main" ]
   schedule:
-    - cron: '*/3 * * * *'
+    - cron: '*/5 * * * *'
   
 
   # Allows you to run this workflow manually from the Actions tab
@@ -19,14 +19,14 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   getgate:
-    if : ${{ github.event_name == 'schedule' }}
+#     if : ${{ github.event_name == 'schedule' }}
     runs-on: ubuntu-latest
     steps:
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
   nightly-builds-tag:
-    if : ${{ github.event_name == 'schedule' }}
+#     if : ${{ github.event_name == 'schedule' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
