@@ -50,6 +50,7 @@ jobs:
      if: "${{ github.event.inputs.tag != '' }}"
      name: Create Release for on-demand
      runs-on: ubuntu-latest
+     permissions: write-all
      steps:
        - name: Checkout code
          uses: actions/checkout@v2
