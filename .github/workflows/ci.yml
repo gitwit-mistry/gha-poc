@@ -21,7 +21,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   nightly-builds-tag:
-#     if : ${{ github.event_name == 'schedule' }} 
+      if : ${{ github.event_name == 'schedule' }} and ${{ github.event.inputs.tag == '' }}
       name: Create Release
       runs-on: ubuntu-latest
       permissions: write-all
