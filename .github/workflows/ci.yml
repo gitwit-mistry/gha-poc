@@ -13,11 +13,15 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Select existing tag'     
+        required: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   nightly-builds-tag:
-#     if : ${{ github.event_name == 'schedule' }}
+#     if : ${{ github.event_name == 'schedule' }} 
       name: Create Release
       runs-on: ubuntu-latest
       permissions: write-all
@@ -41,6 +45,23 @@ jobs:
               - Second Change
             draft: false
             prerelease: false
+            
+  on-demand-builds-tag:
+     if: "${{ github.event.inputs.tag != '' }}"
+     name: Create Release for on-demand
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout code
+         uses: actions/checkout@v2
+       - name: GitHub Tag (with tags filter)
+         uses: ncipollo/release-action@v1
+         with:
+           tag: ${{ github.event.inputs.tags }}"
+         
+     
+     
+     
+    
 
   # This workflow contains a single job called "build"
   build:
