@@ -57,7 +57,7 @@ jobs:
        - name: GitHub Tag (with tags filter)
          uses: ncipollo/release-action@v1
          with:
-           tag: ${{ github.event.inputs.tags }}"
+           tag: ${{ github.event.inputs.tag }}"
          
      
      
