@@ -8,10 +8,10 @@ on:
   push:
     tags:
       - '1.develop-*'
- # schedule:
-  #  - cron: '*/5 * */2 * *'
+  schedule:
+   - cron: '*/5 * * * *'
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Allows you to run this workflow maally from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -33,6 +33,7 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
           with:
+            token: ${{ secrets.PAT }}
             tag_name: 1.develop-nightly-${{ steps.date.outputs.date }}
             release_name: 1.develop-nightly-${{ steps.date.outputs.date }}
             body: |
