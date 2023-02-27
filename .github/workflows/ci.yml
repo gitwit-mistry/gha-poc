@@ -9,7 +9,7 @@ on:
     tags:
       - '1.develop-*'
   schedule:
-   - cron: '*/2 * * * *'
+   - cron: '*/5 * * * *'
 
   # Allows you to run this workflow maally from the Actions tab
   workflow_dispatch:
