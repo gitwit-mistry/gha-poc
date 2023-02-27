@@ -29,6 +29,7 @@ jobs:
          with:
            tag: ${{ github.event.inputs.tag }}"
            makeLatest: true
+           token: ${{ secrets.PAT }}
          
      
      
