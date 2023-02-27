@@ -36,8 +36,8 @@ jobs:
          env:
            GITHUB_TOKEN: ${{ secrets.PAT }}
          with:
-           tag_name: ${{ github.event.inputs.tag }
-           release_name: ${{ github.event.inputs.tag }
+           tag_name: ${{ github.event.inputs.tag }}
+           release_name: ${{ github.event.inputs.tag }}
            body: |
              Changes in this Release
              - First Change
