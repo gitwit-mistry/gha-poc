@@ -9,10 +9,10 @@ on:
     - cron: '*/5 * * * *'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Select existing tag'     
-        required: true
+#     inputs:
+#       tag:
+#         description: 'Select existing tag'     
+#         required: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
