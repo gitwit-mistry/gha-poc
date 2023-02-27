@@ -41,6 +41,7 @@ jobs:
               - Second Change
             draft: false
             prerelease: false
+            make_latest: true
 
      
      
