@@ -25,6 +25,7 @@ jobs:
       - name: set env
         run: |
           env | sort
+          echo "this is the tag: $existing_tag"
           # For push tag event, collect tag info
           if [[ ${GITHUB_EVENT_NAME} == 'push' ]] && [[ ${GITHUB_REF} =~ ^refs/tags/.*$ ]]; then
             export TAG=${GITHUB_REF##refs/*/}
