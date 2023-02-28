@@ -53,6 +53,7 @@ jobs:
           elif [[ "$existing_tag" != "" ]]; then 
             export TAG=${existing_tag}
             echo "--> TAG[${TAG}][${TAG##v}]"
+            echo "This is the if condition running "
             # For '1.develop-*' tags, upload the chart to the 'develop' artifactory repo
             if [[ ${TAG} =~ ^1.develop-.*$ ]]; then
               # TODO: Remove 'gha' string from TAG later
