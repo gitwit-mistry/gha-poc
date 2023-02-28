@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       COMPONENT: ${{ inputs.component }}
+      EXISTING_TAG: ${{ inputs.existing_tag }}
     steps:
       - uses: actions/checkout@v3
       - name: set env
@@ -51,8 +52,8 @@ jobs:
               echo "Unknown tag [${TAG}]"
               exit 1
             fi
-          elif [[ "$existing_tag" != "" ]]; then 
-            export TAG=${existing_tag}
+          elif [[ ${EXISTING_TAG} != "" ]]; then 
+            export TAG=${EXISTING_TAG}
             echo "--> TAG[${TAG}][${TAG##v}]"
             echo "This is the if condition running "
             # For '1.develop-*' tags, upload the chart to the 'develop' artifactory repo
