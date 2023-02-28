@@ -23,9 +23,9 @@ jobs:
       EXISTING_TAG: ${{ inputs.existing_tag }}
     steps:
       - uses: actions/checkout@v3
-        if: ${{EXISTING_TAG}} == ""
+        if: ${{env.EXISTING_TAG}} == ""
       - uses: actions/checkout@v3
-        if: ${{EXISTING_TAG}} != ""
+        if: ${{env.EXISTING_TAG}} != ""
         with:
           ref: ${EXISTING_TAG}
       - name: set env
