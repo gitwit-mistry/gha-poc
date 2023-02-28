@@ -31,7 +31,7 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
   ims-apisvc:
-     uses: gitwit-mistry/gha-poc/.github/workflows/template-helm.yml@develop
+     uses: gitwit-mistry/gha-poc/.github/workflows/template-helm.yml@main
      with:
        component: ims-apisvc
        existing_tag: "${{ github.event.inputs.tags }}"
