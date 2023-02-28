@@ -76,11 +76,11 @@ jobs:
        - name: Test env
          id: myid
          run: | 
-           TZ='Australia/Melbourne'
+           TZ='Asia/Kolkata'
            echo "MYTAG=$(date +'%Y-%m-%d-%H-%M')" >> $GITHUB_OUTPUT
        - name: V22
          run: |
-           echo "${{steps.myid.outputs.MYTAG}}"
+           echo "my_nightly_string-${{steps.myid.outputs.MYTAG}}"
          
 
 
