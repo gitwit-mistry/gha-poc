@@ -19,12 +19,23 @@ defaults:
   # Note: If 'strategy.matrix' is used, it does not give a pipeline view for each IMS component.
   # Therefore, instead of using 'strategy.matrix', invoke the reusable workflow for each IMP comonent.
 jobs:
-  ims-apisvc:
-    uses: gitwit-mistry/gha-poc/.github/workflows/template-helm.yml@develop
-    with:
-      component: ims-apisvc
-      existing_tag: "${{ github.event.inputs.tags }}"
-    secrets: inherit
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+#   ims-apisvc:
+#     uses: gitwit-mistry/gha-poc/.github/workflows/template-helm.yml@develop
+#     with:
+#       component: ims-apisvc
+#       existing_tag: "${{ github.event.inputs.tags }}"
+#     secrets: inherit
 
 #   ims-incidentsvc:
 #     uses: netSkope/service/.github/workflows/ims-helm-ci-template.yml@1.develop-20230109.1
