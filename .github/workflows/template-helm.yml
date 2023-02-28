@@ -26,9 +26,10 @@ jobs:
       - name: set env
         run: |
           env | sort
-          echo "this is the tag: $existing_tag"
+          echo "this is the tag: ${EXISTING_TAG}"
           # For push tag event, collect tag info
           if [[ ${GITHUB_EVENT_NAME} == 'push' ]] && [[ ${GITHUB_REF} =~ ^refs/tags/.*$ ]]; then
+            echo "dont run s1"
             export TAG=${GITHUB_REF##refs/*/}
             echo "--> GITHUB_REF[${GITHUB_REF}] TAG[${TAG}][${TAG##v}]"
             # For '1.develop-*' tags, upload the chart to the 'develop' artifactory repo
@@ -55,7 +56,7 @@ jobs:
           elif [[ ${EXISTING_TAG} != "" ]]; then 
             export TAG=${EXISTING_TAG}
             echo "--> TAG[${TAG}][${TAG##v}]"
-            echo "This is the if condition running "
+            echo "This is the if condition running"
             # For '1.develop-*' tags, upload the chart to the 'develop' artifactory repo
             if [[ ${TAG} =~ ^1.develop-.*$ ]]; then
               # TODO: Remove 'gha' string from TAG later
@@ -78,6 +79,7 @@ jobs:
               exit 1
             fi
           elif [[ ${GITHUB_EVENT_NAME} == 'pull_request' ]]; then
+            echo "dont run s2"
             echo "--> Process PR event [${GITHUB_REF}]"
             echo "VERSION_LABEL=0.0.1-dev.gha.build-${GITHUB_RUN_NUMBER}" >> ${GITHUB_ENV}
           else
