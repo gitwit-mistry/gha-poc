@@ -1,4 +1,4 @@
-name: IMS helm CI
+name: caller
 on:
   push:
     tags:
