@@ -30,12 +30,12 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-#   ims-apisvc:
-#     uses: gitwit-mistry/gha-poc/.github/workflows/template-helm.yml@develop
-#     with:
-#       component: ims-apisvc
-#       existing_tag: "${{ github.event.inputs.tags }}"
-#     secrets: inherit
+  ims-apisvc:
+     uses: gitwit-mistry/gha-poc/.github/workflows/template-helm.yml@develop
+     with:
+       component: ims-apisvc
+       existing_tag: "${{ github.event.inputs.tags }}"
+     secrets: inherit
 
 #   ims-incidentsvc:
 #     uses: netSkope/service/.github/workflows/ims-helm-ci-template.yml@1.develop-20230109.1
