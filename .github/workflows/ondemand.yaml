@@ -79,7 +79,7 @@ jobs:
            echo "MYTAG=date::$(date +'%Y-%m-%d-%H-%M')" >> $GITHUB_OUTPUT
        - name: V22
          run: |
-           echo ${{steps.myid.MYTAG}}
+           echo "${{steps.myid.MYTAG}}"
          
 
 
