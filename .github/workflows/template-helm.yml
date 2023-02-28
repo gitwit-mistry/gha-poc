@@ -60,7 +60,7 @@ jobs:
               {
                 echo "TYPE=develop"
                 echo "VERSION_LABEL=2.0.0-${TAG##v}-gha"
-                echo "TARGET_REPO=ims-develop-incimgmtsvc-helm"
+                echo "TARGET_REPO=ims-develop-incimgmtsvc-helm" 
               } >> ${GITHUB_ENV}
             elif [[ ${TAG} =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
               echo "--> release TAG[${TAG}]"
