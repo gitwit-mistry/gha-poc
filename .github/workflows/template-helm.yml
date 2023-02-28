@@ -25,18 +25,14 @@ jobs:
       COMPONENT: ${{ inputs.component }}
       EXISTING_TAG: ${{ inputs.existing_tag }}
     steps:
-      - name: test
-        if: ${{inputs.existing_tag == ''}}  
-        run: |
-          echo "${{inputs.existing_tag}}"
       - uses: actions/checkout@v3
         name: p
         id: p
-        if: ${{inputs.existing_tag == ''}}  
+        if: ${{env.EXISTING_TAG == ''}}  
       - uses: actions/checkout@v3
         name: q
         id: q
-        if: ${{inputs.existing_tag != ''}}  
+        if: ${{env.EXISTING_TAG != ''}}  
         with:
           ref: ${{env.EXISTING_TAG}}
       - name: set env
