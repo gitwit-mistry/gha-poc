@@ -20,7 +20,7 @@ defaults:
   # Therefore, instead of using 'strategy.matrix', invoke the reusable workflow for each IMP comonent.
 jobs:
   ims-apisvc:
-    uses: gitwit-mistry/gha-poc/.github/workflows/template-helm.yml@main
+    uses: gitwit-mistry/gha-poc/.github/workflows/template-helm.yml@develop
     with:
       component: ims-apisvc
       existing_tag: "${{ github.event.inputs.tags }}"
