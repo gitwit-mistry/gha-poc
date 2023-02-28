@@ -1,0 +1,51 @@
+name: IMS helm CI
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+.[0-9]+'
+      - '1.develop-*'
+  pull_request:
+    paths:
+      - '**/mgmtplane/apiconnector/helm-chart/**'
+      - '.github/workflows/ims-helm-**'
+      # Skip 'apiconnector-services' as it has its own custome workflow for helm CI.
+      - '!**/mgmtplane/apiconnector/helm-chart/apiconnector-services/**'
+  workflow_dispatch:
+    inputs:
+      tags:
+          description: "Existing Tag"
+          required: true
+          type: string
+
+defaults:
+  run:
+    shell: bash
+
+  # Note: If 'strategy.matrix' is used, it does not give a pipeline view for each IMS component.
+  # Therefore, instead of using 'strategy.matrix', invoke the reusable workflow for each IMP comonent.
+jobs:
+  ims-apisvc:
+    uses: gitwit-mistry/gha-poc/.github/workflows/template-helm.yml@main
+    with:
+      component: ims-apisvc
+      existing_tag: "${{ github.event.inputs.tags }}
+    secrets: inherit
+
+#   ims-incidentsvc:
+#     uses: netSkope/service/.github/workflows/ims-helm-ci-template.yml@1.develop-20230109.1
+#     with:
+#       component: ims-incidentsvc
+#     secrets: inherit
+
+#   ims-ingress:
+#     uses: netSkope/service/.github/workflows/ims-helm-ci-template.yml@1.develop-20230109.1
+#     with:
+#       component: ims-ingress
+#     secrets: inherit
+
+#   nsapicconfigmap:
+#     uses: netSkope/service/.github/workflows/ims-helm-ci-template.yml@1.develop-20230109.1
+#     with:
+#       component: nsapicconfigmap
+#     secrets: inherit
