@@ -32,14 +32,17 @@ jobs:
 #           else
 #               echo "ONDEMAND=false" >> "$GITHUB_ENV"
 #           fi
+      - name: test
+        run: |
+          echo "${{inputs.existing_tag}}"
       - uses: actions/checkout@v3
         name: p
         id: p
-        if: ${{inputs.existing_tag == "true"}}  
+#         if: ${{inputs.existing_tag == "true"}}  
       - uses: actions/checkout@v3
         name: q
         id: q
-        if: ${{inputs.existing_tag != "true"}}  
+#         if: ${{inputs.existing_tag != "true"}}  
         with:
           ref: ${{env.EXISTING_TAG}}
       - name: set env
