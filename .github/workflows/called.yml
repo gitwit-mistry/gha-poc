@@ -35,7 +35,6 @@ jobs:
      with:
        component: ims-apisvc
        existing_tag: "${{ github.event.inputs.tags }}"
-     secrets: inherit
 
 #   ims-incidentsvc:
 #     uses: netSkope/service/.github/workflows/ims-helm-ci-template.yml@1.develop-20230109.1
