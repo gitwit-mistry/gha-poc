@@ -25,13 +25,6 @@ jobs:
       COMPONENT: ${{ inputs.component }}
       EXISTING_TAG: ${{ inputs.existing_tag }}
     steps:
-#       - name: Set env NEED
-#         run: |
-#           if [[ ${EXISTING_TAG} != "" ]]; then
-#               echo "ONDEMAND=true" >> "$GITHUB_ENV"
-#           else
-#               echo "ONDEMAND=false" >> "$GITHUB_ENV"
-#           fi
       - name: test
         if: ${{inputs.existing_tag == ''}}  
         run: |
@@ -39,11 +32,11 @@ jobs:
       - uses: actions/checkout@v3
         name: p
         id: p
-#         if: ${{inputs.existing_tag == "true"}}  
+        if: ${{inputs.existing_tag == ''}}  
       - uses: actions/checkout@v3
         name: q
         id: q
-#         if: ${{inputs.existing_tag != "true"}}  
+        if: ${{inputs.existing_tag != ''}}  
         with:
           ref: ${{env.EXISTING_TAG}}
       - name: set env
