@@ -8,6 +8,7 @@ on:
         type: string
      existing_tag:
         description: Existing Tag
+        type: string
 
       
 defaults:
