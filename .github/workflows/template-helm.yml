@@ -32,11 +32,11 @@ jobs:
       - uses: actions/checkout@v3
         name: p
         id: p
-        if: ${{env.EXISTING_TAG == ""}}
+        if: ${{env.EXISTING_TAG == "th"}} 
       - uses: actions/checkout@v3
         name: q
         id: q
-        if: ${{env.EXISTING_TAG != ""}}  
+        if: ${{env.EXISTING_TAG != "th"}}  
         with:
           ref: ${{env.EXISTING_TAG}}
       - name: set env
