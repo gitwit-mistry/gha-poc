@@ -12,7 +12,8 @@ on:
     inputs:
       tag:
         description: 'Select existing tag'     
-        required: true
+        required: false
+        default: "iiiiii"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -79,7 +80,7 @@ jobs:
            echo "MYTAG=$(TZ='Asia/Kolkata' date +'%Y-%m-%d-%H-%M')" >> $GITHUB_ENV
        - name: V22
          run: |
-           echo "my_nightly_string-${{env.MYTAG}}"
+           echo "my_nightly_string-${{inputs.tag}}"
          
 
 
