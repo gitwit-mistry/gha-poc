@@ -29,7 +29,7 @@ jobs:
     uses: gitwit-mistry/gha-poc/.github/workflows/template-helm.yml@main
     with:
       component: ims-apisvc
-      existing_tag: "${{ github.event.inputs.tags }}
+      existing_tag: "${{ github.event.inputs.tags }}"
     secrets: inherit
 
 #   ims-incidentsvc:
