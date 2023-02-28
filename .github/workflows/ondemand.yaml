@@ -49,30 +49,37 @@ jobs:
      runs-on: ubuntu-latest
      permissions: write-all
      steps:
-       - name: Checkout code
-         uses: actions/checkout@v2
-#        - name: GitHub Tag (with tags filter)
-#          uses: ncipollo/release-action@v1
+#        - name: Checkout code
+#          uses: actions/checkout@v2
+# #        - name: GitHub Tag (with tags filter)
+# #          uses: ncipollo/release-action@v1
+# #          with:
+# #            tag: ${{ github.event.inputs.tag }}"
+# #            makeLatest: true
+# #            token: ${{ secrets.PAT }}
+#        - name: Create Release new
+#          id: create_release
+#          uses: actions/create-release@v1
+#          env:
+#            GITHUB_TOKEN: ${{ secrets.PAT }}
+#            TAG: mytag-v1
 #          with:
-#            tag: ${{ github.event.inputs.tag }}"
-#            makeLatest: true
-#            token: ${{ secrets.PAT }}
-       - name: Create Release new
-         id: create_release
-         uses: actions/create-release@v1
-         env:
-           GITHUB_TOKEN: ${{ secrets.PAT }}
-           TAG: mytag-v1
-         with:
-           tag_name: $TAG
-           release_name: ${{ github.event.inputs.tag }}
-           body: |
-             Changes in this Release
-             - First Change
-             - Second Change
-           draft: false
-           prerelease: false
-           make_latest: true         
+#            tag_name: $TAG
+#            release_name: ${{ github.event.inputs.tag }}
+#            body: |
+#              Changes in this Release
+#              - First Change
+#              - Second Change
+#            draft: false
+#            prerelease: false
+#            make_latest: true
+       - name: Test env
+         run: |
+           echo "MYTAG=date::$(date +'%Y-%m-%d-%H-%M')" >> $GITHUB_OUTPUT
+       - name: V22
+         run: |
+           echo ${MYTAG}
+         
 
 
 
