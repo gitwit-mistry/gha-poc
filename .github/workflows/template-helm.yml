@@ -22,23 +22,21 @@ jobs:
       COMPONENT: ${{ inputs.component }}
       EXISTING_TAG: ${{ inputs.existing_tag }}
     steps:
-      - name: Set env NEED
-        run: |
-          if [[ ${EXISTING_TAG} != "" ]]; then
-              echo "ONDEMAND=true" >> "$GITHUB_ENV"
-          else
-              echo "ONDEMAND=false" >> "$GITHUB_ENV"
-          fi
+#       - name: Set env NEED
+#         run: |
+#           if [[ ${EXISTING_TAG} != "" ]]; then
+#               echo "ONDEMAND=true" >> "$GITHUB_ENV"
+#           else
+#               echo "ONDEMAND=false" >> "$GITHUB_ENV"
+#           fi
       - uses: actions/checkout@v3
         name: p
         id: p
-        if: env.NEED != 'false'
-#         if: ${{env.EXISTING_TAG}} == ""
+        if: ${{env.EXISTING_TAG == ""}}
       - uses: actions/checkout@v3
         name: q
         id: q
-        if: env.NEED != 'true'
-#         if: ${{env.EXISTING_TAG}} != ""
+        if: ${{env.EXISTING_TAG != ""}}  
         with:
           ref: ${{env.EXISTING_TAG}}
       - name: set env
