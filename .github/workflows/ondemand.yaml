@@ -13,7 +13,7 @@ on:
       tag:
         description: 'Select existing tag'     
         required: false
-        default: "iiiiii"
+        default: ''
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
