@@ -75,8 +75,9 @@ jobs:
 #            make_latest: true
        - name: Test env
          id: myid
-         run: |
-           echo "MYTAG=date::$(date +'%Y-%m-%d-%H-%M')" >> $GITHUB_OUTPUT
+         run: | 
+           TZ='Australia/Melbourne'
+           echo "MYTAG=$(date +'%Y-%m-%d-%H-%M')" >> $GITHUB_OUTPUT
        - name: V22
          run: |
            echo "${{steps.myid.outputs.MYTAG}}"
