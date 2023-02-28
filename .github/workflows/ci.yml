@@ -11,6 +11,11 @@ on:
 
   # Allows you to run this workflow maally from the Actions tab
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Select existing tag'     
+        required: true
+        default: ''
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,12 +34,17 @@ jobs:
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        if: ${{ github.event_name == 'schedule' }}
-        run: echo Nightly BUild only!
+#       - name: Run a one-line script
+#         if: ${{ github.event_name == 'schedule' }}
+#         run: echo Nightly BUild only!
 
-      # Runs a set of commands using the runners shell
+#       # Runs a set of commands using the runners shell
+#       - name: Run a multi-line script
+#         run: |
+#           echo Add other actions to build,
+#           echo test, and deploy your project.
+
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          echo "${{ github.event.inputs.tag }}"
+      
