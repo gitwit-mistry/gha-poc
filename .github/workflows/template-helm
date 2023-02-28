@@ -1,0 +1,88 @@
+name: Reusable workflow template for IMS Helm CI
+on:
+  workflow_call:
+    inputs:
+     component:
+        description: IMS Component
+        required: true
+        type: string
+     existing_tag:
+        description: Existing Tag
+
+      
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  helm-ci:
+    runs-on: [self-hosted, linux, x64, sz-M, helm, jf]
+    env:
+      COMPONENT: ${{ inputs.component }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: set env
+        run: |
+          env | sort
+          # For push tag event, collect tag info
+          if [[ ${GITHUB_EVENT_NAME} == 'push' ]] && [[ ${GITHUB_REF} =~ ^refs/tags/.*$ ]]; then
+            export TAG=${GITHUB_REF##refs/*/}
+            echo "--> GITHUB_REF[${GITHUB_REF}] TAG[${TAG}][${TAG##v}]"
+            # For '1.develop-*' tags, upload the chart to the 'develop' artifactory repo
+            if [[ ${TAG} =~ ^1.develop-.*$ ]]; then
+              # TODO: Remove 'gha' string from TAG later
+              echo "--> develop TAG[${TAG}]"
+              {
+                echo "TYPE=develop"
+                echo "VERSION_LABEL=2.0.0-${TAG##v}-gha"
+                echo "TARGET_REPO=ims-develop-incimgmtsvc-helm"
+              } >> ${GITHUB_ENV}
+            elif [[ ${TAG} =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
+              echo "--> release TAG[${TAG}]"
+              # For 'N.N.N*' tags, upload the chart to the 'release' artifactory repo
+              {
+                echo "TYPE=release"
+                echo "VERSION_LABEL=${TAG##v}-gha"
+                echo "TARGET_REPO=ims-release-incimgmtsvc-helm"
+              } >> ${GITHUB_ENV}
+            else
+              echo "Unknown tag [${TAG}]"
+              exit 1
+            fi
+          elif [[ "$existing_tag" != "" ]]; then 
+            export TAG=${existing_tag}
+            echo "--> TAG[${TAG}][${TAG##v}]"
+            # For '1.develop-*' tags, upload the chart to the 'develop' artifactory repo
+            if [[ ${TAG} =~ ^1.develop-.*$ ]]; then
+              # TODO: Remove 'gha' string from TAG later
+              echo "--> develop TAG[${TAG}]"
+              {
+                echo "TYPE=develop"
+                echo "VERSION_LABEL=2.0.0-${TAG##v}-gha"
+                echo "TARGET_REPO=ims-develop-incimgmtsvc-helm"
+              } >> ${GITHUB_ENV}
+            elif [[ ${TAG} =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
+              echo "--> release TAG[${TAG}]"
+              # For 'N.N.N*' tags, upload the chart to the 'release' artifactory repo
+              {
+                echo "TYPE=release"
+                echo "VERSION_LABEL=${TAG##v}-gha"
+                echo "TARGET_REPO=ims-release-incimgmtsvc-helm"
+              } >> ${GITHUB_ENV}
+            else
+              echo "Unknown tag [${TAG}]"
+              exit 1
+            fi
+          elif [[ ${GITHUB_EVENT_NAME} == 'pull_request' ]]; then
+            echo "--> Process PR event [${GITHUB_REF}]"
+            echo "VERSION_LABEL=0.0.1-dev.gha.build-${GITHUB_RUN_NUMBER}" >> ${GITHUB_ENV}
+          else
+            echo "Error: Invalid event [${GITHUB_EVENT_NAME}]"
+          fi
+
+          echo "COMPONENT_BASE_DIR=mgmtplane/apiconnector/helm-chart/${COMPONENT}" >> ${GITHUB_ENV}
+
+          echo "--> GITHUB_ENV" 
+          cat "${GITHUB_ENV}" 
+
+     
