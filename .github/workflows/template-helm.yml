@@ -33,6 +33,7 @@ jobs:
 #               echo "ONDEMAND=false" >> "$GITHUB_ENV"
 #           fi
       - name: test
+        if: ${{inputs.existing_tag == ""}}  
         run: |
           echo "${{inputs.existing_tag}}"
       - uses: actions/checkout@v3
