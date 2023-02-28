@@ -9,7 +9,7 @@ on:
     inputs:
       tags:
           description: "Existing Tag"
-          required: false
+          required: true
           type: string
 
 defaults:
