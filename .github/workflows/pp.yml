@@ -22,16 +22,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.BOT_TOKEN}}
           
-
-  run_job:
-    runs-on: ubuntu-latest
-    steps:
-
-      - name: Checkout
-        uses: actions/checkout@v3
-
       - name: env-setup
-        run: |
-           docker images
+        uses: docker://myimage:v1
         env:
           GITHUB_TOKEN: ${{secrets.BOT_TOKEN}}
+
