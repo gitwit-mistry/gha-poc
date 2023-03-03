@@ -16,14 +16,36 @@ jobs:
               
       - name: env-setup
         run: |
-           echo "UID=$UID GID=$GID"
-           docker build -t myimage:v1 .
-           docker images
-        env:
-          GITHUB_TOKEN: ${{secrets.BOT_TOKEN}}
+            mkdir test_dir
+            echo "Hello" > test.txt
           
-      - name: env-setup
-        uses: docker://myimage:v1
-        env:
-          GITHUB_TOKEN: ${{secrets.BOT_TOKEN}}
+      - name: upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: |
+            build/drm-config-service/binary_file
+            
+  build_deps_download:
+    runs-on: ubuntu-latest
+    needs: build_deps
+    steps:
+          
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+          
+      - name: upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: |
+            build/drm-config-service/binary_file
+            
+      - name: env-setup-download
+        run: |
+            ls -l
+            tree
 
