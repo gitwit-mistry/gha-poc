@@ -41,8 +41,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: my-artifact
-#          path: |
-    #        test_dir/test.txt
+          path: |
+            test_dir/test.txt
             
       - name: env-setup-download
         run: |
