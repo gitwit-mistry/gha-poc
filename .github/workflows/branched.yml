@@ -1,0 +1,56 @@
+# IMS: Workflow for Docker CI
+
+name: IMS docker CI
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+.[0-9]+'
+      - '1.develop-*'
+  pull_request:
+    paths:
+      - '.github/workflows/ims-docker**'
+      - '**/mgmtplane/apiconnector/nsapicimages/nsapicimsbase/**'
+      - '**/mgmtplane/apiconnector/nsapicapisvc/**'
+      - '**/mgmtplane/apiconnector/tasks/svcs/nsapicincidentsvc/**'
+      - '**/mgmtplane/apiconnector/nsapicimscontainers/nsapiccachecontainer/**'
+      - '**/mgmtplane/apiconnector/nsapicinitcontainers/nsapicimsinitcontainer/**'
+  workflow_dispatch:
+    inputs:
+      tag:
+          description: "Development Tag"
+          required: true
+          type: string
+          default: ''
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  ims-base-docker:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+    runs-on: [self-hosted, linux, x64, sz-M, docker, docker-in-docker]
+    env:
+      GOPATH: /home/nsadmin/go
+      GOROOT: /usr/local/go
+      GOPROXY: https://gcp-repo.netskope.io/artifactory/ns-go-proxy
+      NS_ARTIFACTORY_HOST: artifactory.netskope.io
+      DEFAULT_VER: 2.0.0
+      DEV_TAG: ${{ inputs.dev_tag }}
+    steps:
+      - name: set the environment - ssh
+        uses: webfactory/ssh-agent@fc49353b67b2b7c1e0e6a600572d01a69f2672dd # tag=v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
+      - name: set the environment - gh
+        run: |
+          echo machine github.com login cicd-bot password $GITHUB_TOKEN > $HOME/.netrc
+          chmod 600 $HOME/.netrc
+        env:
+          GITHUB_TOKEN: ${{secrets.BOT_TOKEN}}
+      - name: get branch
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          BRANCH=$(echo "$DEV_TAG" | grep -o "ENG-[0-9]\+" | sed -e 's/^/DEV_BRANCH=/')
+          echo "$BRANCH"
