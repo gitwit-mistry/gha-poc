@@ -15,11 +15,11 @@ jobs:
         run: |
           {
             echo "TAG=3.2.1"
-          } >> ${GITHUB_ENV}
+          } >> ${$GITHUB_OUTPUT}
           
           
   use:
     uses: gitwit-mistry/gha-poc/.github/workflows/cp.yml@main
     with:
-      timestamp: ${{env.TAG}}
+      timestamp: ${{ steps.vars.outputs.TAG }}
     secrets: inherit
