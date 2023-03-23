@@ -17,10 +17,17 @@ jobs:
         id: myid
         run: echo "timestamp=3.2.1" >> "$GITHUB_OUTPUT"
           
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      OUTPUT1: ${{needs.create.outputs.output1}}
+    steps:
+      - name: env-val
+        run: echo $OUTPUT1
           
           
-  use:
-    uses: gitwit-mistry/gha-poc/.github/workflows/cp.yml@main
-    with:
-      timestamp: ${{ needs.create.outputs.output1 }}
-    secrets: inherit
+ # use:
+ #   uses: gitwit-mistry/gha-poc/.github/workflows/cp.yml@main
+ #   with:
+  #    timestamp: ${{ needs.create.outputs.output1 }}
+  #  secrets: inherit
