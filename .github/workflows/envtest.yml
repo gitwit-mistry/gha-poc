@@ -29,8 +29,9 @@ jobs:
  
           
           
- # use:
- #   uses: gitwit-mistry/gha-poc/.github/workflows/cp.yml@main
- #   with:
-  #    timestamp: ${{ needs.create.outputs.output1 }}
-  #  secrets: inherit
+  use:
+   uses: gitwit-mistry/gha-poc/.github/workflows/cp.yml@main
+   needs: create
+   with:
+     timestamp: ${{ needs.create.outputs.output1 }}
+   secrets: inherit
