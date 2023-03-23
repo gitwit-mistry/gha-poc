@@ -10,12 +10,12 @@ jobs:
   create:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.myid.outputs.timestamp}}
+      output1: ${{ steps.myid.outputs.test}}
     steps:
 
       - name: env-setup
         id: myid
-        run: echo "timestamp=3.2.1" >> "$GITHUB_OUTPUT"
+        run: echo "test=hello" >> "$GITHUB_OUTPUT"
           
   validate:
     runs-on: ubuntu-latest
