@@ -21,4 +21,4 @@ jobs:
       - name: Populate vars
         id: populate_vars
         run: |
-          echo $TIMESTAMP
+          echo ${TIMESTAMP}
