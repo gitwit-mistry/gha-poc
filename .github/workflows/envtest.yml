@@ -1,0 +1,25 @@
+name: ENV TEST
+on: 
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+ 
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: env-setup
+        run: |
+          {
+            echo "TAG=3.2.1"
+          } >> ${GITHUB_ENV}
+          
+          
+  use:
+    uses: gitwit-mistry/gha-poc/.github/workflows/cp.yml
+    with:
+      timestamp: $TAG
+    secrets: inherit
