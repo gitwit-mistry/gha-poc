@@ -10,15 +10,15 @@ jobs:
   create:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{env.TAG}}
+      output1: ${{ steps.myid.outputs.timestamp}}
     steps:
 
       - name: env-setup
         id: myid
         run: |
           {
-            echo "TAG=3.2.1"
-          } >> $GITHUB_ENV
+            echo "timestamp=3.2.1"
+          } >> "$GITHUB_OUTPUT"
           
           
           
