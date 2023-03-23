@@ -9,6 +9,8 @@ defaults:
 jobs:
   create:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{env.TAG}}
     steps:
 
       - name: env-setup
@@ -16,11 +18,12 @@ jobs:
         run: |
           {
             echo "TAG=3.2.1"
-          } >> $GITHUB_OUTPUT
+          } >> $GITHUB_ENV
+          
           
           
   use:
     uses: gitwit-mistry/gha-poc/.github/workflows/cp.yml@main
     with:
-      timestamp: ${{ steps.myid.outputs.TAG }}
+      timestamp: ${{ needs.create.outputs.output1 }}
     secrets: inherit
