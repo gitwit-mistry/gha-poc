@@ -15,10 +15,7 @@ jobs:
 
       - name: env-setup
         id: myid
-        run: |
-          {
-            echo "timestamp=3.2.1"
-          } >> "$GITHUB_OUTPUT"
+        run: echo "timestamp=3.2.1" >> "$GITHUB_OUTPUT"
           
           
           
