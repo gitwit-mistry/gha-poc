@@ -1,0 +1,24 @@
+name: Reusable workflow template for IMS Docker CI
+on:
+  workflow_call:
+    inputs:
+     timestamp:
+        description: TIMESTAMP TAG
+        required: true
+        type: string
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  TIMESTAMP: ${{ inputs.timestamp }}
+
+jobs:
+  setup-vars:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Populate vars
+        id: populate_vars
+        run: |
+          echo $TIMESTAMP
