@@ -19,7 +19,7 @@ jobs:
           
           
   use:
-    uses: gitwit-mistry/gha-poc/.github/workflows/cp.yml
+    uses: gitwit-mistry/gha-poc/.github/workflows/cp.yml@main
     with:
       timestamp: $TAG
     secrets: inherit
