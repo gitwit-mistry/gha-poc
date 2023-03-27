@@ -36,13 +36,13 @@ jobs:
   create:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.date.outputs.timestamp}}
+      output1: ${{ steps.date.outputs.branch}}
     env:
       BRANCH: ${{ inputs.branch }}
     steps:
       - name: Get current date
         id: date
-        run: echo "timestamp=$BRANCH" >> $GITHUB_OUTPUT
+        run: echo "branch=$BRANCH" >> $GITHUB_OUTPUT
 
           
 #   validate:
@@ -59,6 +59,6 @@ jobs:
   use:
    uses: gitwit-mistry/gha-poc/.github/workflows/envtest.yml@main
    needs: create
-#    with:
-#      timestamp: ${{ needs.create.outputs.output1 }}
+   with:
+     branch: ${{ needs.create.outputs.output1 }}
    secrets: inherit
