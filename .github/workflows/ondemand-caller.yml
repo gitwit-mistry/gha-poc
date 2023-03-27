@@ -57,7 +57,7 @@ jobs:
           
           
   use:
-   uses: gitwit-mistry/gha-poc/.github/workflows/envtest.yml.yml@main
+   uses: gitwit-mistry/gha-poc/.github/workflows/envtest.yml@main
    needs: create
 #    with:
 #      timestamp: ${{ needs.create.outputs.output1 }}
