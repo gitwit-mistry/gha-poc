@@ -7,6 +7,12 @@ on:
           required: true
           type: string
           default: ''
+  workflow_call:
+    inputs:
+     branch:
+        description: "Development Branch from WF Call"
+        required: true
+        type: string
 
 defaults:
   run:
