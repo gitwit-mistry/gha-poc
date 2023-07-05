@@ -24,6 +24,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           pwd
+          ls
 
       - name: Replace Variables
         run: |
