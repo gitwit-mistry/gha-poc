@@ -1,0 +1,4 @@
+# YAML File Template
+name: ${name}
+age: ${age}
+email: ${email}

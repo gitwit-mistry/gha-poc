@@ -6,11 +6,6 @@ on:
       - '[0-9]+.[0-9]+.[0-9]+.[0-9]+'
       - '1.develop-*'
   workflow_dispatch:
-    inputs:
-      tags:
-          description: "Existing Tag"
-          required: true
-          type: string
 
 defaults:
   run:
@@ -30,26 +25,12 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-  ims-apisvc:
-     uses: gitwit-mistry/gha-poc/.github/workflows/template-helm.yml@main
-     with:
-       component: ims-apisvc
-       existing_tag: "${{ github.event.inputs.tags }}"
 
-#   ims-incidentsvc:
-#     uses: netSkope/service/.github/workflows/ims-helm-ci-template.yml@1.develop-20230109.1
-#     with:
-#       component: ims-incidentsvc
-#     secrets: inherit
+      - name: Replace Variables
+        run: |
+          sed -i 's/${name}/Monty/g' config/build-version.yaml
+          sed -i 's/${age}/24/g' config/build-version.yaml
+          sed -i 's/${email}/mprat@gmail.com/g' config/build-version.yaml
 
-#   ims-ingress:
-#     uses: netSkope/service/.github/workflows/ims-helm-ci-template.yml@1.develop-20230109.1
-#     with:
-#       component: ims-ingress
-#     secrets: inherit
-
-#   nsapicconfigmap:
-#     uses: netSkope/service/.github/workflows/ims-helm-ci-template.yml@1.develop-20230109.1
-#     with:
-#       component: nsapicconfigmap
-#     secrets: inherit
+      - name: Run
+        run: cat config/build-version.yaml
