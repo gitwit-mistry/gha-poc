@@ -25,13 +25,10 @@ jobs:
       - name: Set up environment variables
         run: |
           TZ=Asia/Kolkata
-          echo "COMMIT_SHA=${{ github.sha }}" >> $GITHUB_ENV
-          echo "REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
-          echo "BRANCH_NAME=${{ github.ref }}" >> $GITHUB_ENV
-          echo "CURRENT_TIME=$(date +%T)" >> $GITHUB_ENV
-
-      - name: Replace Variables and Create YAML File
-        run: |
+          COMMIT_SHA=${{ github.sha }}
+          REPO_NAME=${{ github.repository }}
+          BRANCH_NAME=${{ github.ref }}
+          CURRENT_TIME=$(date +%T)" >> $GITHUB_ENV
           sed 's/\${COMMIT_SHA}/${COMMIT_SHA}/g' config/build-version.yaml > config/build-version.yaml
           sed -i 's/\${REPO_NAME}/${REPO_NAME}/g' config/build-version.yaml
           sed -i 's/\${BRANCH_NAME}/${BRANCH_NAME}/g' config/build-version.yaml
