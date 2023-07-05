@@ -30,7 +30,11 @@ jobs:
           echo "REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
           echo "BRANCH_NAME=${{ github.ref }}" >> $GITHUB_ENV
           echo "CURRENT_TIME=$(date +%T)" >> $GITHUB_ENV
-          echo HELM_DIR_PATH=mgmtplane/apiconnector/helm-chart >> $GITHUB_ENV
+          echo "HELM_DIR_PATH=mgmtplane/apiconnector/helm-chart" >> $GITHUB_ENV
+          
+      - name: Run
+        run: |
+          cat ${HELM_DIR_PATH}/build-version.yaml
 
       - name: Populate Build Info File
         run: |
@@ -44,6 +48,6 @@ jobs:
 
           
 
-      - name: Run
+      - name: Run post
         run: |
           cat ${HELM_DIR_PATH}/build-version.yaml
