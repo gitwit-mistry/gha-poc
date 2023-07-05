@@ -1,5 +1,5 @@
 # YAML File Template
 Time: ${time}
-Commit ID: ${commjtid}
+Commit ID: ${commitid}
 Branch: ${branch}
 Repo: ${repo}
