@@ -28,7 +28,7 @@ jobs:
           COMMIT_SHA=${{ github.sha }}
           REPO_NAME=${{ github.repository }}
           BRANCH_NAME=${{ github.ref }}
-          CURRENT_TIME=$(date +%T)" >> $GITHUB_ENV
+          CURRENT_TIME=$(date +%T) >> $GITHUB_ENV
           sed 's/\${COMMIT_SHA}/${COMMIT_SHA}/g' config/build-version.yaml > config/build-version.yaml
           sed -i 's/\${REPO_NAME}/${REPO_NAME}/g' config/build-version.yaml
           sed -i 's/\${BRANCH_NAME}/${BRANCH_NAME}/g' config/build-version.yaml
