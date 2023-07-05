@@ -38,10 +38,11 @@ jobs:
           sed -i 's/\${REPO_NAME}/${REPO_NAME}/g' ${HELM_DIR_PATH}/build-version.yaml
           sed -i 's/\${BRANCH_NAME}/${BRANCH_NAME}/g' ${HELM_DIR_PATH}/build-version.yaml
           sed -i 's/\${CURRENT_TIME}/${CURRENT_TIME}/g' ${HELM_DIR_PATH}/build-version.yaml
-          cat ${HELM_DIR_PATH}/build-version.yaml
+          
           #mv ${HELM_DIR_PATH}/build-version.yaml ${COMPONENT_BASE_DIR}/helm/templates/build-version.yaml
 
           
 
       - name: Run
-        run: cat config/build-version.yaml
+        run: |
+          cat ${HELM_DIR_PATH}/build-version.yaml
