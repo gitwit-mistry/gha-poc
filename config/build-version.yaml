@@ -1,5 +1,5 @@
 # YAML File Template
-Time: ${time}
-Commit ID: ${commitid}
-Branch: ${branch}
-Repo: ${repo}
+commit_sha: ${COMMIT_SHA}
+repo_name: ${REPO_NAME}
+branch_name: ${BRANCH_NAME}
+current_time: ${CURRENT_TIME}
