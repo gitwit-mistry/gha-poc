@@ -31,10 +31,8 @@ jobs:
         run: |
           export TZ=Asia/Kolkata
           export TIME="$(date +%T)"
-          sed -i 's/${time}/${ TIME }/g' config/build-version.yaml
-          sed -i 's/${commitid}/${{ github.sha }}/g' config/build-version.yaml
-          sed -i 's/${branch}/${{ github.ref }}/g' config/build-version.yaml
-          sed -i 's/${repo}/${{ github.repository }}/g' config/build-version.yaml
+          sed -i 's/${time}/"${ TIME }"/g' config/build-version.yaml
+
           
 
       - name: Run
