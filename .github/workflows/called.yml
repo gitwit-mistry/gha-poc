@@ -22,17 +22,20 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
-      - name: Run a multi-line script
+      - name: Set up environment variables
         run: |
-          pwd
-          ls
+          TZ=Asia/Kolkata
+          echo "COMMIT_SHA=${{ github.sha }}" >> $GITHUB_ENV
+          echo "REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${{ github.ref }}" >> $GITHUB_ENV
+          echo "CURRENT_TIME=$(date +%T)" >> $GITHUB_ENV
 
-      - name: Replace Variables
+      - name: Replace Variables and Create YAML File
         run: |
-          export TZ=Asia/Kolkata
-          export TIME="$(date +%T)"
-          sed -i 's/${time}/"${ TIME }"/g' config/build-version.yaml
-
+          sed 's/\${COMMIT_SHA}/${COMMIT_SHA}/g' config/build-version.yaml > config/build-version.yaml
+          sed -i 's/\${REPO_NAME}/${REPO_NAME}/g' config/build-version.yaml
+          sed -i 's/\${BRANCH_NAME}/${BRANCH_NAME}/g' config/build-version.yaml
+          sed -i 's/\${CURRENT_TIME}/${CURRENT_TIME}/g' config/build-version.yaml
           
 
       - name: Run
