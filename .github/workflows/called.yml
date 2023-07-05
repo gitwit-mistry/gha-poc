@@ -29,9 +29,13 @@ jobs:
 
       - name: Replace Variables
         run: |
-          sed -i 's/${name}/Monty/g' config/build-version.yaml
-          sed -i 's/${age}/24/g' config/build-version.yaml
-          sed -i 's/${email}/mprat@gmail.com/g' config/build-version.yaml
+          export TZ=Asia/Kolkata
+          export TIME="$(date +%T)"
+          sed -i 's/${time}/${ TIME }/g' config/build-version.yaml
+          sed -i 's/${commitid}/${{ github.sha }}/g' config/build-version.yaml
+          sed -i 's/${branch}/${{ github.ref }}/g' config/build-version.yaml
+          sed -i 's/${repo}/${{ github.repository }}/g' config/build-version.yaml
+          
 
       - name: Run
         run: cat config/build-version.yaml
