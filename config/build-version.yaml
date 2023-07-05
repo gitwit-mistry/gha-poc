@@ -1,4 +1,5 @@
 # YAML File Template
-name: ${name}
-age: ${age}
-email: ${email}
+Time: ${time}
+Commit ID: ${commjtid}
+Branch: ${branch}
+Repo: ${repo}
