@@ -29,13 +29,18 @@ jobs:
           echo "REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
           echo "BRANCH_NAME=${{ github.ref }}" >> $GITHUB_ENV
           echo "CURRENT_TIME=$(date +%T)" >> $GITHUB_ENV
+          echo HELM_DIR_PATH=mgmtplane/apiconnector/helm-chart >> $GITHUB_ENV
 
-      - name: Replace Variables and Create YAML File
+      - name: Populate Build Info File
         run: |
-          sed 's/\${COMMIT_SHA}/${COMMIT_SHA}/g' config/build-version.yaml > config/build-version.yaml
-          sed -i 's/\${REPO_NAME}/${REPO_NAME}/g' config/build-version.yaml
-          sed -i 's/\${BRANCH_NAME}/${BRANCH_NAME}/g' config/build-version.yaml
-          sed -i 's/\${CURRENT_TIME}/${CURRENT_TIME}/g' config/build-version.yaml
+          echo ${HELM_DIR_PATH}
+          sed 's/\${COMMIT_SHA}/${COMMIT_SHA}/g' ${HELM_DIR_PATH}/build-version.yaml > ${HELM_DIR_PATH}/build-version.yaml
+          sed -i 's/\${REPO_NAME}/${REPO_NAME}/g' ${HELM_DIR_PATH}/build-version.yaml
+          sed -i 's/\${BRANCH_NAME}/${BRANCH_NAME}/g' ${HELM_DIR_PATH}/build-version.yaml
+          sed -i 's/\${CURRENT_TIME}/${CURRENT_TIME}/g' ${HELM_DIR_PATH}/build-version.yaml
+          cat ${HELM_DIR_PATH}/build-version.yaml
+          #mv ${HELM_DIR_PATH}/build-version.yaml ${COMPONENT_BASE_DIR}/helm/templates/build-version.yaml
+
           
 
       - name: Run
