@@ -47,10 +47,10 @@ jobs:
           template=${template/\$\{BRANCH_NAME\}/$BRANCH_NAME}
           template=${template/\$\{CURRENT_TIME\}/$CURRENT_TIME}
           
-          echo "$template" > updated.yaml
+          echo "$template" > ${HELM_DIR_PATH}/ims-apisvc/templates/build-version.yaml
 
           
 
       - name: Run post
         run: |
-          cat updated.yaml
+          cat ${HELM_DIR_PATH}/ims-apisvc/templates/build-version.yaml
