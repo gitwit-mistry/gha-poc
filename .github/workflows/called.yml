@@ -39,7 +39,7 @@ jobs:
       - name: Populate Build Info File
         run: |
           # Read the YAML template file
-          template=$(cat config/build-version.yaml)
+          template=$(cat ${HELM_DIR_PATH}/build-version.yaml)
 
           # Replace variables in the template
           template=${template/\$\{COMMIT_SHA\}/$COMMIT_SHA}
