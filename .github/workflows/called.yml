@@ -34,21 +34,21 @@ jobs:
           
       - name: Run
         run: |
-          cat ${HELM_DIR_PATH}/build-version.yaml
+          cat config/build-version.yaml
 
       - name: Populate Build Info File
         run: |
-          echo ${HELM_DIR_PATH}
-          sed 's/\${COMMIT_SHA}/${COMMIT_SHA}/g' ${HELM_DIR_PATH}/build-version.yaml 
-          sed -i 's/\${REPO_NAME}/${REPO_NAME}/g' ${HELM_DIR_PATH}/build-version.yaml
-          sed -i 's/\${BRANCH_NAME}/${BRANCH_NAME}/g' ${HELM_DIR_PATH}/build-version.yaml
-          sed -i 's/\${CURRENT_TIME}/${CURRENT_TIME}/g' ${HELM_DIR_PATH}/build-version.yaml
-          cat ${HELM_DIR_PATH}/build-version.yaml
+          echo config
+          sed 's/\${COMMIT_SHA}/${COMMIT_SHA}/g' config/build-version.yaml 
+          sed -i 's/\${REPO_NAME}/${REPO_NAME}/g' config/build-version.yaml
+          sed -i 's/\${BRANCH_NAME}/${BRANCH_NAME}/g' config/build-version.yaml
+          sed -i 's/\${CURRENT_TIME}/${CURRENT_TIME}/g' config/build-version.yaml
+          cat config/build-version.yaml
           
-          #mv ${HELM_DIR_PATH}/build-version.yaml ${COMPONENT_BASE_DIR}/helm/templates/build-version.yaml
+          #mv config/build-version.yaml ${COMPONENT_BASE_DIR}/helm/templates/build-version.yaml
 
           
 
       - name: Run post
         run: |
-          cat ${HELM_DIR_PATH}/build-version.yaml
+          cat config/build-version.yaml
