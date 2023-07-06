@@ -38,17 +38,19 @@ jobs:
 
       - name: Populate Build Info File
         run: |
-          echo config
-          sed 's/\${COMMIT_SHA}/${COMMIT_SHA}/g' config/build-version.yaml 
-          sed -i 's/\${REPO_NAME}/${REPO_NAME}/g' config/build-version.yaml
-          sed -i 's/\${BRANCH_NAME}/${BRANCH_NAME}/g' config/build-version.yaml
-          sed -i 's/\${CURRENT_TIME}/${CURRENT_TIME}/g' config/build-version.yaml
-          cat config/build-version.yaml
+          # Read the YAML template file
+          template=$(cat config/build.version.yaml)
+
+          # Replace variables in the template
+          template=${template/\$\{COMMIT_SHA\}/$COMMIT_SHA}
+          template=${template/\$\{REPO_NAME\}/$REPO_NAME}
+          template=${template/\$\{BRANCH_NAME\}/$BRANCH_NAME}
+          template=${template/\$\{CURRENT_TIME\}/$CURRENT_TIME}
           
-          #mv config/build-version.yaml ${COMPONENT_BASE_DIR}/helm/templates/build-version.yaml
+          echo "$template" > updated.yaml
 
           
 
       - name: Run post
         run: |
-          cat config/build-version.yaml
+          cat updated.yaml
