@@ -39,7 +39,7 @@ jobs:
       - name: Populate Build Info File
         run: |
           echo ${HELM_DIR_PATH}
-          sed 's/\${COMMIT_SHA}/${COMMIT_SHA}/g' ${HELM_DIR_PATH}/build-version.yaml > ${HELM_DIR_PATH}/build-version.yaml
+          sed 's/\${COMMIT_SHA}/${COMMIT_SHA}/g' ${HELM_DIR_PATH}/build-version.yaml 
           sed -i 's/\${REPO_NAME}/${REPO_NAME}/g' ${HELM_DIR_PATH}/build-version.yaml
           sed -i 's/\${BRANCH_NAME}/${BRANCH_NAME}/g' ${HELM_DIR_PATH}/build-version.yaml
           sed -i 's/\${CURRENT_TIME}/${CURRENT_TIME}/g' ${HELM_DIR_PATH}/build-version.yaml
