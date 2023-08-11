@@ -37,18 +37,6 @@ env:
   RELEASE_NO: ${{ inputs.release_no }}
 
 jobs:
-  build-service:
-    runs-on: [self-hosted, linux, x64, sz-M]
-    env:
-      GOPRIVATE: github.com/netskope,github.com/netSkope,github.com/netskope-qe
-      GH_ACCESS_TOKEN: ${{ secrets.BOT_TOKEN }}
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-      - name: set the environment - gh
-        run: echo  << ${RELEASE_NO} >> 
-
-
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -57,4 +45,5 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       - name: set the environment - gh
-        run: echo  << ${RELEASE_NO} >> 
+        run: |
+          hello world
