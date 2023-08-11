@@ -32,7 +32,7 @@ jobs:
         run: npm run build
 
       - name: Print custom variable
-        run: echo "Custom variable: ${{ github.event.inputs.custom-variable }}"
+        run: echo "Custom variable:${{ github.event.inputs.custom-variable }}"
 
       - name: Run tests
         run: npm test
