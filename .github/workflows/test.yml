@@ -46,4 +46,4 @@ jobs:
       - uses: actions/checkout@v3
       - name: set the environment - gh
         run: |
-          hello world
+          echo hello world ${RELEASE_NO}
