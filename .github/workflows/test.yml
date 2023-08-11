@@ -34,7 +34,7 @@ env:
   DRM_CONFIG_BASE: /runner/_work/drm-config-service/drm-config-service/testdata
   DEFAULT_VER: 1.0.0
   NS_CFG_ROOT: /runner/_work/drm-config-service/drm-config-service/testdata
-  RELEASE_NO: ${{ inputs.release_no }}
+  RELEASE_NO: ${{ github.event.inputs.release_no }}
 
 jobs:
   build:
