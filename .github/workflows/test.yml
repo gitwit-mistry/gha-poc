@@ -1,49 +1,38 @@
----
-# yamllint disable rule:line-length
-name: ConfigService CI
+name: Manual and PR Workflow
+
 on:
-  # Allows you to run this workflow manually from the Actions tab.
+  pull_request:
+    types:
+      - opened
+      - synchronize
   workflow_dispatch:
     inputs:
-      run_env: 
-        description: 'Select environment'
-        required: true
-        options: 
-          - develop
-          - release
-      release_no:
-        description: 'Select Release Number Eg: Release107'
+      custom-variable:
+        description: 'A custom input variable'
         required: false
-        default: 'develop'
-
-  pull_request:
-
-defaults:
-  run:
-    shell: bash
-
-env:
-  NS_ARTIFACTORY_HOST: artifactory.netskope.io
-  UID: 1000
-  GID: 1000
-  IMAGE: nsbuilder-test-drm-config-service
-  CODE_CLIMATE_FILE: "codeclimate.out"
-  GOPATH: /home/runner/go
-  GOCACHE: /home/runner/.cache/go-build
-  GOPRIVATE: github.com/netskope,github.com/netskope-qe
-  DRM_CONFIG_BASE: /runner/_work/drm-config-service/drm-config-service/testdata
-  DEFAULT_VER: 1.0.0
-  NS_CFG_ROOT: /runner/_work/drm-config-service/drm-config-service/testdata
-  RELEASE_NO: ${{ inputs.release_no }}
+        default: 'default-value'
 
 jobs:
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-      - name: set the environment - gh
-        run: |
-          echo hello world ${RELEASE_NO}
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build
+        run: npm run build
+
+      - name: Print custom variable
+        run: echo "Custom variable: ${{ github.event.inputs.custom-variable }}"
+
+      - name: Run tests
+        run: npm test
