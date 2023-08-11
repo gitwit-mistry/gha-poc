@@ -1,0 +1,51 @@
+---
+# yamllint disable rule:line-length
+name: ConfigService CI
+on:
+  # Allows you to run this workflow manually from the Actions tab.
+  workflow_dispatch:
+    inputs:
+      run_env:
+        description: 'Select environment'
+        required: true
+        options: 
+          - develop
+          - release
+      release_no:
+        description: 'Select Release Number Eg: Release107'
+        required: false
+        default: 'develop'
+
+  pull_request:
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  NS_ARTIFACTORY_HOST: artifactory.netskope.io
+  UID: 1000
+  GID: 1000
+  IMAGE: nsbuilder-test-drm-config-service
+  CODE_CLIMATE_FILE: "codeclimate.out"
+  GOPATH: /home/runner/go
+  GOCACHE: /home/runner/.cache/go-build
+  GOPRIVATE: github.com/netskope,github.com/netskope-qe
+  DRM_CONFIG_BASE: /runner/_work/drm-config-service/drm-config-service/testdata
+  DEFAULT_VER: 1.0.0
+  NS_CFG_ROOT: /runner/_work/drm-config-service/drm-config-service/testdata
+  RELEASE_NO: ${{ inputs.release_no }}
+
+jobs:
+
+  build-service:
+    runs-on: [self-hosted, linux, x64, sz-M]
+    env:
+      GOPRIVATE: github.com/netskope,github.com/netSkope,github.com/netskope-qe
+      GH_ACCESS_TOKEN: ${{ secrets.BOT_TOKEN }}
+    steps:
+      - name: set the environment - gh
+        run: echo  << ${RELEASE_NO} >> 
+
+
+
