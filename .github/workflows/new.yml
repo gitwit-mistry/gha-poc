@@ -1,0 +1,22 @@
+name: Workflow Dispatch with Default Parameter
+
+on:
+  workflow_dispatch:
+    inputs:
+      custom_var:
+        description: 'A custom variable'
+        required: false
+        default: 'default_valueyyyy'
+
+jobs:
+  process_workflow_dispatch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check and print variable
+        run: |
+          if [ -z "${{ github.event.inputs.custom_var }}" ]; then
+            echo "Hello"
+          else
+            echo "${{ github.event.inputs.custom_var }}"
+          fi
