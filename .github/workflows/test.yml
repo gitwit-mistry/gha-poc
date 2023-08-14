@@ -15,24 +15,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      RELEASE_NO: ${{ inputs.release_no }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run build
-        run: npm run build
-
-      - name: Print custom variable
-        run: echo "Custom variable: ${{ github.event.inputs.custom-variable }}"
-
-      - name: Run tests
-        run: npm test
+      - name: Check and print variable
+        run: |
+          if [ -z "${RELEASE_NO}" ]; then
+            echo "develop"
+          else
+            echo "$${RELEASE_NO}"
+          fi
