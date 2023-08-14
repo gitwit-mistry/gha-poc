@@ -1,12 +1,13 @@
 name: Workflow Dispatch with Default Parameter
 
 on:
+  pull_request:
   workflow_dispatch:
     inputs:
       custom_var:
         description: 'A custom variable'
         required: false
-        default: 'default_valueyyyy'
+        default: 'default_value'
 
 jobs:
   process_workflow_dispatch:
