@@ -7,7 +7,7 @@ on:
       - synchronize
   workflow_dispatch:
     inputs:
-      custom-variable:
+      release_no:
         description: 'A custom input variable'
         required: false
         default: 'default-value'
