@@ -25,7 +25,7 @@ jobs:
       - name: Check and print variable
         run: |
           if [ -z "${RELEASE_NO}" ]; then
-            echo "develop"
+            echo "${RELEASE_NO}"
           else
-            echo "$${RELEASE_NO}"
+            echo "develop"
           fi
