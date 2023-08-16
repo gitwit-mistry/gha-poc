@@ -25,22 +25,13 @@ jobs:
       - name: Check and print variable
         id: release-no
         run: |
-          echo "RELEASE_NO=develop" >> $GITHUB_ENV
+          echo "RELEASE_NO=develop" >> $GITHUB_OUTPUT
+          
+      - name: Check and print variable in the same step
+        run: |
+          echo "${{steps.release-no.outputs.RELEASE_NO}}"
 
     outputs:
       release_no: ${{steps.release-no.outputs.RELEASE_NO}}
-
-   
-  validate:
-    runs-on: ubuntu-latest
-    needs: build
-    env:
-      RELEASE_NO: ${{ needs.build-service.outputs.release_no }}
-    steps:
-
-    - name: Check and print variable
-      run: |
-          echo "${RELEASE_NO}"
-    
     
           
