@@ -22,8 +22,9 @@ jobs:
 
       - name: Set up kubectl
         run: |
-          echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig.yaml
+          echo "himynameis=slimshady" > kubeconfig.yaml
           export KUBECONFIG=$(pwd)/kubeconfig.yaml
+          echo "VAR=slimshady" >> ${GITHUB_ENV}
       - name: Run kubectl get pods
         run: |
-          cat $(pwd)/kubeconfig.yaml
+          echo $VAR
