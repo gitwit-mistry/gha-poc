@@ -1,0 +1,30 @@
+---
+name: Kubectl Get Pods
+
+on:
+  # push:
+  #   branches:
+  #     - main  # Change this to your default branch
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  get-pods:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: ECHO
+        run: |
+          echo "${{ secrets.KUBECONFIG_SECRET }}"
+
+      - name: Set up kubectl
+        run: |
+          echo "himynameis=slimshady" > kubeconfig.yaml
+          export KUBECONFIG=$(pwd)/kubeconfig.yaml
+          echo "VAR=slimshady" >> ${GITHUB_ENV}
+      - name: Run kubectl get pods
+        run: |
+          echo $VAR
