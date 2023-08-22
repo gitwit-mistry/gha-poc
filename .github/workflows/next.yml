@@ -1,0 +1,37 @@
+name: ANOTHER ONE
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+  workflow_dispatch:
+    inputs:
+      release_no:
+        description: 'A custom input variable'
+        required: false
+        default: 'default-value'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_NO: ${{ inputs.release_no }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check and print variable
+        id: release-no
+        run: |
+          echo "RELEASE_NO=develop" >> $GITHUB_OUTPUT
+          
+      - name: Check and print variable in the same step
+        run: |
+          echo "${{steps.release-no.outputs.RELEASE_NO}}"
+
+    outputs:
+      release_no: ${{steps.release-no.outputs.RELEASE_NO}}
+    
+          
