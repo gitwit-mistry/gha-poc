@@ -16,6 +16,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: ECHO
+        run: |
+          echo "${{ secrets.KUBECONFIG_SECRET }}"
+
       - name: Set up kubectl
         run: |
           echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig.yaml
