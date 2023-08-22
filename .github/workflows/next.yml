@@ -10,7 +10,7 @@ on:
 
 jobs:
   get-pods:
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
