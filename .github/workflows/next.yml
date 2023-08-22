@@ -1,37 +1,25 @@
-name: ANOTHER ONE
+---
+name: Kubectl Get Pods
 
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
+  # push:
+  #   branches:
+  #     - main  # Change this to your default branch
   workflow_dispatch:
-    inputs:
-      release_no:
-        description: 'A custom input variable'
-        required: false
-        default: 'default-value'
+  pull_request:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    env:
-      RELEASE_NO: ${{ inputs.release_no }}
+  get-pods:
+    runs-on: ubuntu
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Check and print variable
-        id: release-no
+      - name: Set up kubectl
         run: |
-          echo "RELEASE_NO=develop" >> $GITHUB_OUTPUT
-          
-      - name: Check and print variable in the same step
+          echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig.yaml
+          export KUBECONFIG=$(pwd)/kubeconfig.yaml
+      - name: Run kubectl get pods
         run: |
-          echo "${{steps.release-no.outputs.RELEASE_NO}}"
-
-    outputs:
-      release_no: ${{steps.release-no.outputs.RELEASE_NO}}
-    
-          
+          cat $(pwd)/kubeconfig.yaml
