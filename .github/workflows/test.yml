@@ -33,7 +33,7 @@ jobs:
 
       - name: Run script
         run: |
-          .github/workflows/scripts/docker.sh
+          .github/workflows/script/docker.sh
 
     # outputs:
     #   release_no: ${{steps.release-no.outputs.RELEASE_NO}}
