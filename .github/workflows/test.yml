@@ -22,16 +22,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Check and print variable
-        id: release-no
-        run: |
-          echo "RELEASE_NO=develop" >> $GITHUB_OUTPUT
+      # - name: Check and print variable
+      #   id: release-no
+      #   run: |
+      #     echo "RELEASE_NO=develop" >> $GITHUB_OUTPUT
           
-      - name: Check and print variable in the same step
-        run: |
-          echo "${{steps.release-no.outputs.RELEASE_NO}}"
+      # - name: Check and print variable in the same step
+      #   run: |
+      #     echo "${{steps.release-no.outputs.RELEASE_NO}}"
 
-    outputs:
-      release_no: ${{steps.release-no.outputs.RELEASE_NO}}
+      - name: Run script
+        run: |
+          .github/workflows/scripts/docker.sh
+
+    # outputs:
+    #   release_no: ${{steps.release-no.outputs.RELEASE_NO}}
     
           
