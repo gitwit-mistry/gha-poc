@@ -22,6 +22,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+
+      - name: Run script
+        run: |
+          ls
+          cd .github
+
+      - name: Run script2
+        run: |
+          ls
+
       # - name: Check and print variable
       #   id: release-no
       #   run: |
@@ -31,9 +41,10 @@ jobs:
       #   run: |
       #     echo "${{steps.release-no.outputs.RELEASE_NO}}"
 
-      - name: Run script
-        run: |
-          .github/workflows/scripts/docker.sh
+      # - name: Run script
+      #   run: |
+      #     chmod +x .github/workflows/script/docker.sh
+      #     .github/workflows/script/docker.sh
 
     # outputs:
     #   release_no: ${{steps.release-no.outputs.RELEASE_NO}}
