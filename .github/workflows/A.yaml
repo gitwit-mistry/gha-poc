@@ -1,0 +1,20 @@
+name: Workflow A
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up variables
+        run: echo "MY_VARIABLE=hello" > my_variable.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: shared-artifact
+          path: my_variable.txt
