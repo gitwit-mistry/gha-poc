@@ -1,0 +1,23 @@
+name: Workflow B
+
+on:
+  workflow_run:
+    workflows: ["Workflow A"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: shared-artifact
+
+      - name: Read and use the variable
+        run: |
+          variable=$(cat shared-artifact/my_variable.txt)
+          echo "Received variable: $variable"
+          # Use $variable as needed
