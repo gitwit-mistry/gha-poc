@@ -1,0 +1,27 @@
+name: Neo4j Docker
+on:
+  workflow_dispatch:
+    inputs:
+      repo-tag:
+        description: "tag of sre-terraform-alert-correlation.git repo to build container image"
+        type: string
+        default: "neo4j-5.15.0"
+jobs:
+  build-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: main
+      
+      - name: Checkout tools repo
+        uses: actions/checkout@v4
+        with:
+          repository: neo4j/docker-neo4j
+          path: docker-neo4j
+      
+      - name: Run
+        run: |
+          pwd
+          ls -l
